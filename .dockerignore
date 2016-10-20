@@ -4,4 +4,5 @@ Vagrantfile
 # ansible
 ansible.cfg
 ansible-retry
-tests
+tests/Dockerfile.ubuntu14.04
+tests/output.*.log

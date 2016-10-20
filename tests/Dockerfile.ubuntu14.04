@@ -14,6 +14,14 @@ MAINTAINER Chu-Siang Lai <chusiang.lai@gmail.com>
 
 
 #
+# test phase
+#
+
+RUN echo "===> Installing curl for testing purpose..."  && \
+    DEBIAN_FRONTEND=noninteractive  \
+    apt-get install -y -f curl
+
+#
 # build phase
 #
 
@@ -25,12 +33,4 @@ RUN sed -i -e 's/exit\s\s*101/exit 0/' /usr/sbin/policy-rc.d
 ENV PLAYBOOK setup.yml
 RUN ansible-playbook-wrapper -vvv
 
-
-#
-# test phase
-#
-
-#RUN echo "===> Installing curl for testing purpose..."  && \
-#    DEBIAN_FRONTEND=noninteractive  \
-#    apt-get install -y -f curl
 
