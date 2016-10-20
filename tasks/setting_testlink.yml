@@ -1,0 +1,5 @@
+---
+# tasks file for testlink
+
+- debug: msg="==> setting for TestLink"
+

@@ -1,0 +1,58 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- debug: msg="==> setting for Nginx"
+
+# copy ssl certificate and key.
+#- name: create ssl certificate and key directory
+#  become: yes
+#  file:
+#    path: /etc/nginx/conf.d/ssl_key
+#    state: directory
+#    mode: 0755
+#
+#- name: copy ssl certificate
+#  become: yes
+#  copy:
+#    src: ./files/ssl_key/example.crt
+#    dest: /etc/nginx/conf.d/ssl_key/example.tw.crt
+#    mode: 0644
+#
+#- name: copy ssl key
+#  become: yes
+#  copy:
+#    src: ./files/ssl_key/example.tw.key
+#    dest: /etc/nginx/conf.d/ssl_key/example.tw.key
+#    mode: 0644
+
+# backup default nginx virtualhost.
+- name: check if "default.conf.bak" target exists
+  stat: path=/etc/nginx/conf.d/default.conf
+  register: filecheck
+
+- name: rename to "default.conf.bak", if any
+  command: mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.bak
+  when: filecheck.stat.exists
+  notify: restart nginx
+
+# add new nginx virtualhost.
+- name: add testlink virtualhost of nginx
+  vars:
+    php_socket_path: /var/run/php/php7.0-fpm.sock
+  template:
+    src: ./templates/nginx-testlink.conf.j2
+    dest: /etc/nginx/conf.d/nginx-testlink.conf
+  when: nginx_enable_ssl == false
+  notify: restart nginx
+
+# add new nginx virtualhost (ssl).
+- name: add testlink-web.app virtualhost (ssl) of nginx
+  vars:
+    php_socket_path: /var/run/php/php7.0-fpm.sock
+  template:
+    src: ./templates/nginx-testlink.ssl.conf.j2
+    dest: /etc/nginx/conf.d/nginx-testlink.conf
+  when: nginx_enable_ssl == true
+  notify: restart nginx
+
+# vim:ft=ansible :

@@ -1,0 +1,58 @@
+#!/usr/bin/env ansible-playbook
+
+---
+- name: play 'testlink.ansible.role/setup.yml'
+  hosts: all
+  become: yes
+
+  vars_files:
+    - vars/main.yml
+
+  pre_tasks:
+    - name: rename hostname
+      hostname: name={{ hostname }}
+
+  roles:
+    - williamyeh.nginx
+    - chusiang.php7
+    - geerlingguy.mysql
+
+  tasks:
+    - name: include main task
+      include: tasks/main.yml
+
+    #- name: start nginx on ubuntu
+    #  service: name=nginx state=started
+    #  when: ansible_distribution|lower == "ubuntu"
+
+    #- name: start zabbix-agent on debian
+    #  service: name=zabbix-agent state=started
+    #  when: ansible_distribution|lower == "debian"
+
+    - name: check nginx process
+      shell: ps -A | grep nginx
+      register: nginx_process
+      ignore_errors: yes
+      tags: debug
+
+    - name: print nginx process
+      debug:
+        msg: "{{ nginx_process.stdout_lines }}"
+      tags: debug
+
+    - name: check mariadb process
+      shell: ps -A | grep mysql
+      register: mariadb_process
+      ignore_errors: yes
+      tags: debug
+
+    - name: print mariadb process
+      debug:
+        msg: "{{ mariadb_process.stdout_lines }}"
+      tags: debug
+        
+  handlers:
+    - name: restart nginx
+      include: handlers/main.yml
+
+# vim:ft=ansible:

@@ -1,0 +1,44 @@
+---
+# vars file for testlink
+
+hostname: testlink.local
+modify_hostname: true
+
+# Nginx
+nginx_testlink_path: /usr/share/nginx/testlink/
+nginx_server_name: testlink.example.tw
+nginx_enable_ssl: false
+nginx_user: www-data
+
+# PHP-FPM
+#php_owner: nginx
+#php_group: nginx
+php_owner: "{{ nginx_user }}"
+php_group: "{{ nginx_user }}"
+php_max_execution_time: 3000
+php_session_gc_maxlifetime: 60000
+
+# MariaDB
+mysql_root_password: secret
+mysql_root_password_update: no
+mysql_packages:
+  - mariadb-client
+  - mariadb-server
+  - python-mysqldb
+
+#mysql_databases:
+#  - name: testlinkdb
+#    encoding: utf8
+#    collation: utf8_general_ci
+#mysql_users:
+#  - name: testlinkdb
+#    host: "%"
+#    password: cUv4UK6ardC6cMGL
+#    priv: "testlinkdb.*:ALL"
+
+# TestLink
+testlink_var_path: '/var/testlink'
+testlink_db_name: 'testlinkdb'
+testlink_db_user: 'testlinkdb'
+
+

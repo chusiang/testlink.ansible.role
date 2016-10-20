@@ -1,0 +1,11 @@
+# vagrant
+.vagrant
+
+# ansible
+setup.retry
+roles/
+
+# docker
+tests/output.*.log
+builds/*/outlog.log
+build_result*

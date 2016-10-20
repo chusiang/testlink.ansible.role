@@ -1,0 +1,10 @@
+---
+# tasks file for testlink
+
+- include: setup.yml 
+
+- include: setting_php-fpm.yml 
+
+- include: setting_nginx.yml 
+
+- include: setting_testlink.yml 
