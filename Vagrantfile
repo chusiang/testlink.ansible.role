@@ -17,6 +17,11 @@ Vagrant.configure("2") do |config|
   config.vm.define "ubuntu1404", primary: true do |node|
     node.vm.box = "ubuntu/trusty64"
     node.vm.network "private_network", ip: "192.168.33.10"
+
+    node.vm.provider "virtualbox" do |vb|
+      # Customize the amount of memory for mysql-server-5.6 on the VM.
+      vb.memory = "1024"
+    end
     
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "setup.yml"
