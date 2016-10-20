@@ -9,14 +9,14 @@ An Ansible role of Deploy TestLink with Nginx, PHP 7 (php-fpm) and MariaDB on Ub
  - TestLink: **1.9.15**
  - Nginx: **1.10.2**
  - PHP: **7.0.12**
- - MariaDB: **5.5.52**
+ - MySQL: **5.6.33** [^1]
 
 Requirements
 ------------
 
-[TO FIX]
+Managed node:
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- OS: Ubuntu 14.04
 
 Role Variables
 --------------
@@ -48,3 +48,5 @@ Including an example of how to use your role (for instance, with variables passe
 ## License
 
 Copyright (c) chusiang from 2016 under the MIT license.
+
+[^1]: TestLink 1.9.15 is base on **PHP > 5.4** and **MySQL 5.6.x**, please be careful. [(more)](https://github.com/TestLinkOpenSourceTRMS/testlink-code/blob/testlink_1_9/README)

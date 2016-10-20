@@ -6,22 +6,20 @@
 # Get TestLink.
 - name: download testlink tarball
   get_url: >
-    url='http://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.15/testlink-1.9.15.tar.gz'
-    dest=/tmp/testlink-1.9.15.tar.gz
-    checksum='md5:d5b9a3e93cdfd9c8d9daed7fa4257409'
+    url={{ testlink_tarball_url }} checksum='md5:{{ testlink_tarball_md5 }}'
+    dest=/tmp/testlink.tar.gz
 
 - name: unarchive testlink tarball
-  unarchive: src=/tmp/testlink-1.9.15.tar.gz dest=/tmp copy=no
+  unarchive: src=/tmp/testlink.tar.gz dest=/tmp copy=no
 
 # Create TestLink workspace
-- name: check `/tmp/testlink-1.9.15` path
-  stat: path=/tmp/testlink-1.9.15
+- name: check testlink temp path
+  stat: path=/tmp/testlink-{{ testlink_tarball_version }}
   register: unarchive_testlink_stat
 
 - name: move testlink directory into nginx 
   become: yes
-  command: mv /tmp/testlink-1.9.15 {{ nginx_testlink_path }}
-  #command: mv /tmp/testlink-1.9.15 /usr/share/nginx/testlink
+  command: mv /tmp/testlink-{{ testlink_tarball_version }} {{ nginx_testlink_path }}
   when: unarchive_testlink_stat.stat.exists
   ignore_errors: yes
 
@@ -52,6 +50,8 @@
   mysql_db: >
     name={{ testlink_db_name }} state=present
     encoding=utf8 collation=utf8_general_ci
+  tags:
+    - database
 
 - name: create testlink table and data
   mysql_db: >
@@ -61,10 +61,14 @@
     - '{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_tables.sql'
     - '{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_default_data.sql'
   ignore_errors: yes
+  tags:
+    - database
 
 - name: create user for testlink database
   mysql_user: >
     name={{ testlink_db_user }} host=localhost state=present
     password=cUv4UK6ardC6cMGL priv={{ testlink_db_name }}.*:ALL
   ignore_errors: yes
+  tags:
+    - database
 
