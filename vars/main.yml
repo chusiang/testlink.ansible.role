@@ -4,9 +4,19 @@
 hostname: 'testlink.local'
 modify_hostname: false
 
+# TestLink
+testlink_tarball_version: '1.9.15'
+testlink_tarball_url: 'http://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.15/testlink-1.9.15.tar.gz'
+testlink_tarball_md5: 'd5b9a3e93cdfd9c8d9daed7fa4257409'
+testlink_var_path: '/var/testlink'
+testlink_db_name: 'testlinkdb'
+testlink_db_user: 'testlinkdb'
+testlink_db_password: 'cUv4UK6ardC6cMGL'
+testlink_db_host: 'localhost'
+
 # Nginx
 nginx_user: 'www-data'
-nginx_testlink_path: '/usr/share/nginx/testlink/'
+nginx_testlink_path: '/usr/share/nginx/testlink'
 nginx_server_name: 'testlink.example.tw'
 nginx_enable_ssl: false
 
@@ -26,12 +36,4 @@ mysql_packages:
   - 'mysql-client-5.6'
   - 'mysql-server-5.6'
   - 'python-mysqldb'
-
-# TestLink
-testlink_tarball_version: '1.9.15'
-testlink_tarball_url: 'http://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.15/testlink-1.9.15.tar.gz'
-testlink_tarball_md5: 'd5b9a3e93cdfd9c8d9daed7fa4257409'
-testlink_var_path: '/var/testlink'
-testlink_db_name: 'testlinkdb'
-testlink_db_user: 'testlinkdb'
 

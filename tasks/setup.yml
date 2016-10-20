@@ -67,7 +67,7 @@
 - name: create user for testlink database
   mysql_user: >
     name={{ testlink_db_user }} host=localhost state=present
-    password=cUv4UK6ardC6cMGL priv={{ testlink_db_name }}.*:ALL
+    password={{ testlink_db_password }} priv={{ testlink_db_name }}.*:ALL
   ignore_errors: yes
   tags:
     - database

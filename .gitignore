@@ -2,6 +2,7 @@
 .vagrant
 
 # ansible
+ansible.cfg
 setup.retry
 roles/
 
