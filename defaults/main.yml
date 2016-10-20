@@ -1,8 +1,7 @@
 ---
 # vars file for testlink
 
-hostname: 'testlink.local'
-modify_hostname: false
+setup_local_database: true
 
 # TestLink
 testlink_tarball_version: '1.9.15'
