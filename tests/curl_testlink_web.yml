@@ -1,7 +1,7 @@
 ---
 
 - name: test the TestLink web app
-  shell: "curl -s http://localhost/login.php | grep '<form name=\"login\" id=\"login\"'"
+  shell: "curl -s http://localhost/login.php | grep title"
   register: curl_testlink_web
   ignore_errors: yes
   tags: test

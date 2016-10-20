@@ -17,7 +17,7 @@ script:
   - echo "==> Run Test case ..."
   
   # Ubuntu
-  - grep '<form name=\"login\" id=\"login\" action=\"login.php?viewer=\" method=\"post\" class=\"form form--login\">"' tests/output.ubuntu14.04.log
+  - grep '<title>Login</title>' tests/output.ubuntu14.04.log
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
