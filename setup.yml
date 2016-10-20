@@ -8,6 +8,9 @@
   vars_files:
     - vars/main.yml
 
+  vars:
+    modify_hostname: true
+
   pre_tasks:
     - name: rename hostname
       hostname: name={{ hostname }}
