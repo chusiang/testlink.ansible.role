@@ -1,0 +1,12 @@
+---
+
+- name: test the TestLink web app
+  shell: "curl -s http://localhost/login.php | grep '<form name=\"login\" id=\"login\"'"
+  register: curl_testlink_web
+  ignore_errors: yes
+  tags: test
+
+- name: print curl result
+  debug:
+    msg: "{{ curl_testlink_web.stdout_lines }}"
+  tags: test

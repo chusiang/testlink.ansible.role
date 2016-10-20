@@ -25,6 +25,10 @@
 
     - name: include check task
       include: tasks/check.yml
+
+  post_tasks:
+    # Run some tests.
+    - include: tests/curl_testlink_web.yml
         
   handlers:
     - include: handlers/main.yml
