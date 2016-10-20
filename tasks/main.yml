@@ -1,7 +1,7 @@
 ---
 # tasks file for testlink
 
-- include: setup.yml 
+- include: setup_testlink.yml 
 
 - include: setting_php-fpm.yml 
 
