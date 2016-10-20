@@ -1,0 +1,23 @@
+---
+language: bash
+sudo: true
+services:
+  - docker
+
+before_install:
+  - docker info
+  - docker version
+  
+  - echo "==> Build with Docker ..."
+  
+  # Ubuntu
+  - docker build -f tests/Dockerfile.ubuntu14.04  -t testlink:ubuntu14.04 . | tee tests/output.ubuntu14.04.log
+
+script:
+  - echo "==> Run Test case ..."
+  
+  # Ubuntu
+  - grep '<form name=\"login\" id=\"login\" action=\"login.php?viewer=\" method=\"post\" class=\"form form--login\">"' tests/output.ubuntu14.04.log
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

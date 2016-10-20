@@ -1,0 +1,7 @@
+# vagrant
+Vagrantfile
+
+# ansible
+ansible.cfg
+ansible-retry
+tests

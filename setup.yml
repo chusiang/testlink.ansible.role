@@ -6,7 +6,7 @@
   become: yes
 
   vars_files:
-    - vars/main.yml
+    - defaults/main.yml
 
   roles:
     #- chusiang.switch-apt-mirror
@@ -18,12 +18,17 @@
   tasks:
     - name: rename hostname
       hostname: name=testlink.local
+      when: ansible_virtualization_type != "docker"
 
     - name: include main task
       include: tasks/main.yml
 
     - name: include check task
       include: tasks/check.yml
+
+  post_tasks:
+    # Run some tests.
+    - include: tests/curl_testlink_web.yml
         
   handlers:
     - include: handlers/main.yml
