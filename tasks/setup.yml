@@ -50,6 +50,7 @@
   mysql_db: >
     name={{ testlink_db_name }} state=present
     encoding=utf8 collation=utf8_general_ci
+  when: setup_local_database == true
   tags:
     - database
 
@@ -60,6 +61,7 @@
   with_items:
     - '{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_tables.sql'
     - '{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_default_data.sql'
+  when: setup_local_database == true
   ignore_errors: yes
   tags:
     - database
@@ -68,6 +70,7 @@
   mysql_user: >
     name={{ testlink_db_user }} host=localhost state=present
     password={{ testlink_db_password }} priv={{ testlink_db_name }}.*:ALL
+  when: setup_local_database == true
   ignore_errors: yes
   tags:
     - database
