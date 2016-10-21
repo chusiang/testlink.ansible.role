@@ -1,7 +1,7 @@
 Ansible Role: TestLink
 =========
 
-[![Build Status](https://travis-ci.org/chusiang/testlink.ansible.role.svg?branch=master)](https://travis-ci.org/chusiang/testlink.ansible.role) [![Ansible Galaxy](https://img.shields.io/badge/role-testlink-blue.svg)](https://galaxy.ansible.com/chusiang/testlink/) [![Docker Hub](https://img.shields.io/badge/docker-testlink-blue.svg)](https://hub.docker.com/r/chusiang/testlink/)
+[![Build Status](https://travis-ci.org/chusiang/testlink.ansible.role.svg?branch=master)](https://travis-ci.org/chusiang/testlink.ansible.role) [![Ansible Galaxy](https://img.shields.io/badge/role-testlink-blue.svg)](https://galaxy.ansible.com/chusiang/testlink/) [![Docker Hub](https://img.shields.io/badge/docker-testlink-blue.svg)](https://hub.docker.com/r/chusiang/testlink/) [![](https://images.microbadger.com/badges/image/chusiang/testlink.svg)](https://microbadger.com/images/chusiang/testlink "Get your own image badge on microbadger.com")
 
 An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu.
 
