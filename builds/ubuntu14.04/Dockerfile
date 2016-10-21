@@ -25,7 +25,7 @@ RUN sudo apt-get install -y curl git make ;\
 
 ENV PLAYBOOK testlink.ansible.role/setup.yml
 RUN ansible-playbook-wrapper -vvv
-RUN cp files/run.sh /
+RUN cp run.sh /
 
 EXPOSE 80 443 
 VOLUME [ "/data" ]
