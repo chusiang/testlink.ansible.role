@@ -20,7 +20,7 @@ RUN sed -i -e 's/exit\s\s*101/exit 0/' /usr/sbin/policy-rc.d
 # init
 RUN sudo apt-get install -y curl git make ;\
     git clone https://github.com/chusiang/testlink.ansible.role.git ;\
-    cd php7.ansible.role ;\
+    cd testlink.ansible.role ;\
     make init
 
 ENV PLAYBOOK testlink.ansible.role/setup.yml
