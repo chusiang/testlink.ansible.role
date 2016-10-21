@@ -1,5 +1,4 @@
-Ansible Role: TestLink
-=========
+# Ansible Role: TestLink
 
 [![Build Status](https://travis-ci.org/chusiang/testlink.ansible.role.svg?branch=master)](https://travis-ci.org/chusiang/testlink.ansible.role) [![Ansible Galaxy](https://img.shields.io/badge/role-testlink-blue.svg)](https://galaxy.ansible.com/chusiang/testlink/) [![Docker Hub](https://img.shields.io/badge/docker-testlink-blue.svg)](https://hub.docker.com/r/chusiang/testlink/) [![](https://images.microbadger.com/badges/image/chusiang/testlink.svg)](https://microbadger.com/images/chusiang/testlink "Get your own image badge on microbadger.com")
 
@@ -13,13 +12,11 @@ An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fp
 
 [testlink_website]: http://www.testlink.org/
 
-Requirements
-------------
+## Requirements
 
 - OS: Ubuntu 14.04
 
-Role Variables
---------------
+## Role Variables
 
 If you have a stand alone database server, you can setting the `setup_local_database` to `false`, it will not run tasks of install database server.
 
@@ -60,8 +57,7 @@ mysql_packages:
   - 'python-mysqldb'
 ```
 
-Dependencies
-------------
+## Dependencies
 
 A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
 
@@ -71,14 +67,47 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 
 > By the way, if you need to switch apt mirror, you can use [chusiang.switch-apt-mirror](https://galaxy.ansible.com/chusiang/switch-apt-mirror) role.
 
-Example Playbook
-----------------
+## Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
     - hosts: servers
       roles:
          - { role: chusiang.testlink }
+
+## Docker Container
+
+This repository contains Dockerized [Ansible](https://github.com/ansible/ansible), published to the public [Docker Hub](https://hub.docker.com/) via **automated build** mechanism.
+
+> Docker Hub: [chusiang/testlink](https://hub.docker.com/r/chusiang/testlink/)
+
+### Images
+
+- chusiang/testlink (lastest)
+
+### Usage
+
+- Run container.
+
+    ```
+    $ docker run --name=testlink -p 8080:80 -d chusiang/testlink
+    3bf486c1515b9c28499bbd48f1fe3d3164434108636a49585b1a7b4e3965293e
+    ```
+
+- Check container status.
+
+    ```
+    $ docker ps
+    CONTAINER ID    IMAGE                COMMAND      CREATED           STATUS           PORTS                            NAMES
+    3bf486c1515b    chusiang/testlink    "/run.sh"    20 minutes ago    Up 20 minutes    443/tcp, 0.0.0.0:8080->80/tcp    testlink
+    ```
+
+- Go TestLink web (http://localhost:8080).
+
+    ![2016-10-22-testlink-login-page](https://cloud.githubusercontent.com/assets/219066/19607220/eab4c16a-97fa-11e6-97e1-04869b724673.png)
+
+- Login the default administrator account, the **name and password are admin / admin**. 
+
 
 ## License
 
