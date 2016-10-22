@@ -39,3 +39,4 @@
     msg: "{{ mysql_process.stdout_lines }}"
   tags: debug
 
+# vim:ft=ansible:

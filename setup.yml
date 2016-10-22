@@ -8,17 +8,30 @@
   vars_files:
     - defaults/main.yml
 
+  pre_tasks:
+    - name: manual add mysql repository
+      include: tasks/add_mysql_repo.yml
+      
   roles:
     #- chusiang.switch-apt-mirror
     #- chusiang.vim-and-vi-mode
     - williamyeh.nginx
     - chusiang.php7
-    - geerlingguy.mysql
+    - {
+        role: geerlingguy.mysql,
+        mysql_packages: ['mysql-server', 'mysql-client','python-mysqldb'],
+        when: "ansible_distribution == 'Debian'"
+      }
+    - {
+        role: geerlingguy.mysql,
+        mysql_packages: ['mysql-server-5.6', 'mysql-client-5.6','python-mysqldb'],
+        when: "ansible_distribution == 'Ubuntu'"
+      }
 
   tasks:
     - name: rename hostname
       hostname: name=testlink.local
-      when: ansible_virtualization_type != "docker"
+      when: ansible_virtualization_type != 'docker'
 
     - name: include main task
       include: tasks/main.yml

@@ -13,11 +13,17 @@ before_install:
   # Ubuntu
   - docker build -f tests/Dockerfile.ubuntu14.04  -t testlink:ubuntu14.04 . | tee tests/output.ubuntu14.04.log
 
+  # Debian
+  - docker build -f tests/Dockerfile.debian8      -t testlink:debian8     . | tee tests/output.debian8.log
+
 script:
   - echo "==> Run Test case ..."
   
   # Ubuntu
   - grep '<title>Login</title>' tests/output.ubuntu14.04.log
+
+  # Debian
+  - grep '<title>Login</title>' tests/output.debian8.log
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

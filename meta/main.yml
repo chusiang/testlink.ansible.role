@@ -1,6 +1,6 @@
 galaxy_info:
   author: chusiang
-  description: Deploy TestLink with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu.
+  description: Deploy TestLink with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu and Debian.
   company: commandp Inc.
   license: MIT
   min_ansible_version: 2.1.2.0
@@ -8,28 +8,16 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - trusty
-  #- name: Debian
-  #  versions:
-  #  - all
-  #  - etch
-  #  - jessie
-  #  - lenny
-  #  - sid
-  #  - squeeze
-  #  - stretch
-  #  - wheezy
-  #- name: EL
-  #  versions:
-  #  - all
-  #  - 5
-  #  - 6
-  #  - 7
+  - name: Debian
+    versions:
+    - jessie
 
   galaxy_tags:
     - testlink
-    - test
+    - cms
 
 dependencies:
   - williamyeh.nginx
   - chusiang.php7
   - geerlingguy.mysql
+

@@ -2,19 +2,45 @@
 
 [![Build Status](https://travis-ci.org/chusiang/testlink.ansible.role.svg?branch=master)](https://travis-ci.org/chusiang/testlink.ansible.role) [![Ansible Galaxy](https://img.shields.io/badge/role-testlink-blue.svg)](https://galaxy.ansible.com/chusiang/testlink/) [![Docker Hub](https://img.shields.io/badge/docker-testlink-blue.svg)](https://hub.docker.com/r/chusiang/testlink/) [![](https://images.microbadger.com/badges/image/chusiang/testlink.svg)](https://microbadger.com/images/chusiang/testlink "Get your own image badge on microbadger.com")
 
-An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu.
+An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu and Debian.
 
-- Current version:
+- Current version on Ubuntu 14.04:
  - TestLink: **1.9.15**
  - Nginx: **1.10.2**
  - PHP: **7.0.12**
  - MySQL: **5.6.33** [^1]
 
+- Current version on Debian 8:
+ - TestLink: **1.9.15**
+ - Nginx: **1.10.2**
+ - PHP: **7.0.12**
+ - MySQL: **5.6.34** [^2] 
+
 [testlink_website]: http://www.testlink.org/
 
 ## Requirements
 
-- OS: Ubuntu 14.04
+If we want to use the TestLink role on debian 8, we need include `tasks/add_mysql_repo.yml` at `pre_tasks` and use different package name.
+
+```
+pre_tasks:
+  - name: manual add mysql repository
+    include: tasks/add_mysql_repo.yml
+
+roles:
+  - williamyeh.nginx
+  - chusiang.php7
+  - {
+      role: geerlingguy.mysql,
+      mysql_packages: ['mysql-server', 'mysql-client','python-mysqldb'],
+      when: "ansible_distribution == 'Debian'"
+    }
+  - {
+      role: geerlingguy.mysql,
+      mysql_packages: ['mysql-server-5.6', 'mysql-client-5.6','python-mysqldb'],
+      when: "ansible_distribution == 'Ubuntu'"
+    }
+```
 
 ## Role Variables
 
@@ -114,4 +140,6 @@ This repository contains Dockerized [Ansible](https://github.com/ansible/ansible
 Copyright (c) chusiang from 2016 under the MIT license.
 
 
-[^1]: TestLink 1.9.15 is base on **PHP > 5.4** and **MySQL 5.6.x**, please be careful. [(more)](https://github.com/TestLinkOpenSourceTRMS/testlink-code/blob/testlink_1_9/README)
+[^1]: The TestLink 1.9.15 is base on **PHP > 5.4** and **MySQL 5.6.x**, please be careful. [(more)](https://github.com/TestLinkOpenSourceTRMS/testlink-code/blob/testlink_1_9/README)
+
+[^2]: It only have **MySQL 5.5.x** by default on Debian 8, so I use the mysql official development repo to over the **MySQL 5.6.x**. [(more)](https://github.com/chusiang/testlink.ansible.role/issues/6) 

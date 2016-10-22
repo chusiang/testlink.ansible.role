@@ -1,0 +1,21 @@
+---
+# tasks file for testlink
+
+# Debian.
+- name: add mysql repository key on debian
+  apt_key: url=http://repo.mysql.com/RPM-GPG-KEY-mysql state=present
+  when: ansible_distribution == 'Debian'
+  
+- name: add mysql server repository on debian
+  apt_repository: >
+    repo='deb http://repo.mysql.com/apt/debian/ {{ ansible_distribution_release }} mysql-5.6'
+    state=present
+  when: ansible_distribution == 'Debian'
+
+- name: add mysql python connector repository on debian
+  apt_repository: >
+    repo='deb http://repo.mysql.com/apt/debian/ {{ ansible_distribution_release }} connector-python-2.0'
+    state=present
+  when: ansible_distribution == 'Debian'
+
+# vim:ft=ansible:
