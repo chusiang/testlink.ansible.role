@@ -8,7 +8,7 @@
 #
 
 # pull base image
-FROM williamyeh/ansible:mini-debian8
+FROM williamyeh/ansible:debian8-onbuild
 
 MAINTAINER Chu-Siang Lai <chusiang.lai@gmail.com>
 

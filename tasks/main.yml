@@ -8,3 +8,5 @@
 - include: setting_nginx.yml 
 
 - include: setting_testlink.yml 
+
+# vim:ft=ansible:
