@@ -20,7 +20,27 @@ An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fp
 
 ## Requirements
 
-- OS: Ubuntu 14.04
+If we want to use the TestLink role on debian 8, we need include `tasks/add_mysql_repo.yml` at `pre_tasks` and use different package name.
+
+```
+pre_tasks:
+  - name: manual add mysql repository
+    include: tasks/add_mysql_repo.yml
+
+roles:
+  - williamyeh.nginx
+  - chusiang.php7
+  - {
+      role: geerlingguy.mysql,
+      mysql_packages: ['mysql-server', 'mysql-client','python-mysqldb'],
+      when: "ansible_distribution == 'Debian'"
+    }
+  - {
+      role: geerlingguy.mysql,
+      mysql_packages: ['mysql-server-5.6', 'mysql-client-5.6','python-mysqldb'],
+      when: "ansible_distribution == 'Ubuntu'"
+    }
+```
 
 ## Role Variables
 
