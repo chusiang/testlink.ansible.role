@@ -54,13 +54,19 @@ Vagrant.configure("2") do |config|
   #end
 
   # Debian 8
-  #config.vm.define "debian8" do |node|
-  #    node.vm.box = "debian/jessie64"
-  #
-  #    node.vm.provision "ansible" do |ansible|
-  #        ansible.playbook = "setup.yml"
-  #        ansible.sudo = true
-  #    end
-  #end
+  config.vm.define "debian8" do |node|
+    node.vm.box = "debian/jessie64"
+    node.vm.network "private_network", ip: "192.168.33.11"
+
+    node.vm.provider "virtualbox" do |vb|
+      # Customize the amount of memory for mysql-server-5.6 on the VM.
+      vb.memory = "1024"
+    end
+    
+    node.vm.provision "ansible" do |ansible|
+      ansible.playbook = "setup.yml"
+      ansible.sudo = true
+    end
+  end
   
 end
