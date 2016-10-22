@@ -9,24 +9,24 @@
     - defaults/main.yml
 
   pre_tasks:
-    - name: Add MySQL repository key
-      apt_key: url=http://repo.mysql.com/RPM-GPG-KEY-mysql state=present
-      when: ansible_distribution == 'Debian'
-      
-    - name: Add MySQL Server repository
-      apt_repository: repo='deb http://repo.mysql.com/apt/debian/ {{ ansible_lsb.codename }} mysql-5.6' state=present
-      when: ansible_distribution == 'Debian'
-
-    - name: Add MySQL Python Connector repository
-      apt_repository: repo='deb http://repo.mysql.com/apt/debian/ {{ ansible_lsb.codename }} connector-python-2.0' state=present
-      when: ansible_distribution == 'Debian'
+    - name: manual add mysql repository
+      include: tasks/add_mysql_repo.yml
       
   roles:
     #- chusiang.switch-apt-mirror
     #- chusiang.vim-and-vi-mode
     - williamyeh.nginx
     - chusiang.php7
-    - geerlingguy.mysql
+    - {
+        role: geerlingguy.mysql,
+        mysql_packages: ['mysql-server', 'mysql-client','python-mysqldb'],
+        when: "ansible_distribution == 'Debian'"
+      }
+    - {
+        role: geerlingguy.mysql,
+        mysql_packages: ['mysql-server-5.6', 'mysql-client-5.6','python-mysqldb'],
+        when: "ansible_distribution == 'Ubuntu'"
+      }
 
   tasks:
     - name: rename hostname
