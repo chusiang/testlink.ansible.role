@@ -8,6 +8,19 @@
   vars_files:
     - defaults/main.yml
 
+  pre_tasks:
+    - name: Add MySQL repository key
+      apt_key: url=http://repo.mysql.com/RPM-GPG-KEY-mysql state=present
+      when: ansible_distribution == 'Debian'
+      
+    - name: Add MySQL Server repository
+      apt_repository: repo='deb http://repo.mysql.com/apt/debian/ {{ ansible_lsb.codename }} mysql-5.6' state=present
+      when: ansible_distribution == 'Debian'
+
+    - name: Add MySQL Python Connector repository
+      apt_repository: repo='deb http://repo.mysql.com/apt/debian/ {{ ansible_lsb.codename }} connector-python-2.0' state=present
+      when: ansible_distribution == 'Debian'
+      
   roles:
     #- chusiang.switch-apt-mirror
     #- chusiang.vim-and-vi-mode
@@ -18,7 +31,7 @@
   tasks:
     - name: rename hostname
       hostname: name=testlink.local
-      when: ansible_virtualization_type != "docker"
+      when: ansible_virtualization_type != 'docker'
 
     - name: include main task
       include: tasks/main.yml
