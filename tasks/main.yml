@@ -1,12 +1,12 @@
 ---
 # tasks file for testlink
 
-- include: setup_testlink.yml 
+- include: setup_testlink.yml
 
-- include: setting_php-fpm.yml 
+- include: setting_php-fpm.yml
 
-- include: setting_nginx.yml 
+- include: setting_nginx.yml
 
-- include: setting_testlink.yml 
+- include: setting_testlink.yml
 
 # vim:ft=ansible:
