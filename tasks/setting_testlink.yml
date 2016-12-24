@@ -5,7 +5,7 @@
 
 - name: setting testlink database connect configure
   template: >
-    src=./templates/config_db.inc.php.j2
+    src=../templates/config_db.inc.php.j2
     dest={{ nginx_testlink_path }}/config_db.inc.php
 
 # vim:ft=ansible:
