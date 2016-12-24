@@ -40,7 +40,7 @@
   vars:
     php_socket_path: /var/run/php/php7.0-fpm.sock
   template:
-    src: ./templates/nginx-testlink.conf.j2
+    src: ../templates/nginx-testlink.conf.j2
     dest: /etc/nginx/conf.d/nginx-testlink.conf
   when: nginx_enable_ssl == false
   notify: restart nginx
@@ -50,7 +50,7 @@
   vars:
     php_socket_path: /var/run/php/php7.0-fpm.sock
   template:
-    src: ./templates/nginx-testlink.ssl.conf.j2
+    src: ../templates/nginx-testlink.ssl.conf.j2
     dest: /etc/nginx/conf.d/nginx-testlink.conf
   when: nginx_enable_ssl == true
   notify: restart nginx
