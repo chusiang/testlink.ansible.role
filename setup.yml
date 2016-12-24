@@ -13,7 +13,7 @@
       include: tasks/add_mysql_repo.yml
 
   roles:
-    - chusiang.switch-apt-mirror
+    #- chusiang.switch-apt-mirror
     #- chusiang.vim-and-vi-mode
     - williamyeh.nginx
     - chusiang.php7
