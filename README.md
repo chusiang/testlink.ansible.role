@@ -5,16 +5,16 @@
 An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu and Debian.
 
 - Current version on Ubuntu 14.04:
- - TestLink: **1.9.15**
- - Nginx: **1.10.2**
- - PHP: **7.0.12**
- - MySQL: **5.6.33** [^1]
+  - TestLink: **1.9.15**
+  - Nginx: **1.10.2**
+  - PHP: **7.0.12**
+  - MySQL: **5.6.33** [^1]
 
 - Current version on Debian 8:
- - TestLink: **1.9.15**
- - Nginx: **1.10.2**
- - PHP: **7.0.12**
- - MySQL: **5.6.34** [^2] 
+  - TestLink: **1.9.15**
+  - Nginx: **1.10.2**
+  - PHP: **7.0.12**
+  - MySQL: **5.6.34** [^2] 
 
 [testlink_website]: http://www.testlink.org/
 
