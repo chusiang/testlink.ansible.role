@@ -11,10 +11,12 @@ before_install:
   - echo "==> Build with Docker ..."
   
   # Ubuntu
-  - docker build -f tests/Dockerfile.ubuntu14.04  -t testlink:ubuntu14.04 . | tee tests/output.ubuntu14.04.log
+  - docker build -f tests/Dockerfile.ubuntu14.04  -t testlink:ubuntu14.04
+    . | tee tests/output.ubuntu14.04.log
 
   # Debian
-  - docker build -f tests/Dockerfile.debian8      -t testlink:debian8     . | tee tests/output.debian8.log
+  - docker build -f tests/Dockerfile.debian8      -t testlink:debian8
+    . | tee tests/output.debian8.log
 
 script:
   - echo "==> Run Test case ..."
@@ -27,6 +29,7 @@ script:
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  slack:
+    secure: "fTwQKXiluTXqiKd+FBOWclIkTZrIOvEb4O5XKA5wFOums2NTPABEtxFZb5HpKTaRkPUasjU6USzGXXfNVBCUhZf8tznUK9hpD2P+TMZMXv4XowpoTvxJkNavpRRo+dcxY1KEFRmJ76OcndQjLH0NvAg6mfYy4Rh2xvEk7/B36tQo9kMnzJ47MgtXUPxODMj/SjUyzFzxVdPaRve2HlCBntVTCSCP3KVzhNHgsMi+yZF36z6T8swbkYmS3AY6Z0kTr0C0Cv1eNODzyf837R3FyOQ2asT2GCN3wqdCpaXum7jg0xsNHJbnfSyfHE2TC/ujvsDRFVUyqOqriTPRirkZE162kpjMJskyyU423OcFgbiYFoj2eZM4YnQIzc/gk50Hnnan2vYBBbdAUeuhprv5jPqilhGStuvBQ6pGTReJ0mTAQFWrnv7+OdeMX1ZFDhAly4eHeoRshJiIULgZKnMZFwQ/7PWCfJAKS5kF4MxRf8BaYVhLf/qPPBHu5e9pPEPOka59+7A/VRtim59xT8S1RTdvPjB+RlbRm3VeIDCwTnRuGLo9YJn5PSC2VfitVYdpQXCBx4DIjNeMMHSZbwD+Cm7JaU+95Ksx2nGR26y0YNBpZF4c/pcKlLaYNlD7ReOsoYcY1R2UlcfsjRjtrjFQxIrbkyVxtaoC+Yr9H60LeCk="
   hipchat:
     secure: "DTnXg490xbC3HB3Qs/8aSDSRlrVUBWrDzywuo6+PJrTrQFZbAbn1Xeey9wmibkIB6AigZew+EeBTcmIkactb6zH8cTwOBAaZIAiU2SgMjCBkMXOPblvCd9DToL8ul5/jkwu8ZfV91ncrujczajZDPA1qaKhU3LKqpCVCHIxptRyX2FRsiGS1/2IJSWM/GdVWHzRr4OdYcLixqPlC40iQf6sDlCJAlGmkNSGyMDJ9nOlPKH0fRXW+DBSUMcbYFYO7v3AfDlBibWcaCohhVfaMeYt0BGuQ0cDaxMPPqJbvBySHB04OGFbjFCnQgQe9Q/e7SlUctoKumzloIwcoJOnKtZpHuayXYegRSbUuvVhm0E2a3OHjeuenKdjddF1lOAuUyBal3Jlqy1yIwLafW6lCNaR2+xyJ/tcL2Ds/SSTFnvzxZH1j43acJ59mkFjrA6TQUt81sOG4nlFjHOoD+DriCY1tc6WVP3IltjZUyQBvOrg08DtnTHCJYMG6Yep9hg9y4WO7Hi/3eWiA4z8vYNzOBOz2xVKlqyWTTELwSp04PsnZHxmRInoXdPYK0Jmyh3qNtslcw4l5oHb0htFwyqCPBWbjb0wm/5OrIVcnFXYt9k3/uDOCzz9QsPhulg5Ei+159gNMn4w9djzLVK4IUkzBf/X4PwwH7h56WccHsCGchsc="
-
