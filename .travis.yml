@@ -11,6 +11,32 @@ before_install:
 jobs:
   include:
 
+    # Stage of Syntax check
+    # =====================
+
+    - stage: Syntax check
+      script:
+        - echo "==> Syntax Check on Ansible 2.4 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && make syntax_check"
+
+    - stage: Syntax check
+      script:
+        - echo "==> Syntax Check on Ansible 2.5 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && make syntax_check"
+
+    # Stage of Lint check
+    # ===================
+
+    - stage: Lint check
+      script:
+        - echo "==> Lint Check on Ansible 2.4 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && make lint_check"
+
+    - stage: Lint check
+      script:
+        - echo "==> Lint Check on Ansible 2.5 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && make lint_check"
+
     # Stage of Build
     # ==============
 
@@ -22,7 +48,6 @@ jobs:
   
         - echo "==> Run tase case on Ubuntu 14.04 ..."
         - grep '<title>Login</title>' tests/output.ubuntu14.04.log
-
 
     - stage: Build
       script:
