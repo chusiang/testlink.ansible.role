@@ -10,7 +10,8 @@
 
   pre_tasks:
     - name: Add MySQL repository before roles
-      include: tasks/add_mysql_repo.yml
+      include_tasks: tasks/add_mysql_repo.yml
+      when: ansible_distribution == 'Debian'
 
   roles:
     # Only for development.
@@ -35,6 +36,7 @@
       import_tasks: tasks/main.yml
 
   handlers:
-    - import_tasks: handlers/main.yml
+    - name: Include handler task
+      import_tasks: handlers/main.yml
 
 # vim: ft=ansible :
