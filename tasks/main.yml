@@ -1,18 +1,23 @@
 ---
 # tasks file for testlink
 
-- import_tasks: setup_testlink.yml
+- name: Enter the setup testlink stage
+  import_tasks: setup_testlink.yml
 
-- import_tasks: setting_php-fpm.yml
+- name: Enter the setting php-fpm stage
+  import_tasks: setting_php-fpm.yml
 
-- import_tasks: setting_nginx.yml
+- name: Enter the setting nginx stage
+  import_tasks: setting_nginx.yml
 
-- import_tasks: setting_testlink.yml
+- name: Enter the setting testlink stage
+  import_tasks: setting_testlink.yml
 
 - name: "=> Trigger handlers"
   meta: flush_handlers
   tags: setup
 
-- import_tasks: check.yml
+- name: Enter the check stage
+  import_tasks: check.yml
 
 # vim: ft=ansible :
