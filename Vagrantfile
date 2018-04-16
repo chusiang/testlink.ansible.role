@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   #  
   #  node.vm.provision "ansible" do |ansible|
   #    ansible.playbook = "setup.yml"
-  #    ansible.sudo = true
+  #    ansible.become = true
   #  end
   #end
 
@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
     
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "setup.yml"
-      ansible.sudo = true
+      ansible.become = true
       #ansible.verbose = "vvv"
     end
   end
@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
 
   #  node.vm.provision "ansible" do |ansible|
   #    ansible.playbook = "setup.yml"
-  #    ansible.sudo = true
+  #    ansible.become = true
   #  end
   #end
 
@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
   #
   #    node.vm.provision "ansible" do |ansible|
   #        ansible.playbook = "setup.yml"
-  #        ansible.sudo = true
+  #        ansible.become = true
   #    end
   #end
 
@@ -65,7 +65,7 @@ Vagrant.configure("2") do |config|
     
     node.vm.provision "ansible" do |ansible|
       ansible.playbook = "setup.yml"
-      ansible.sudo = true
+      ansible.become = true
     end
   end
   
