@@ -33,17 +33,15 @@
     - '{{ testlink_var_path }}/logs/'
     - '{{ testlink_var_path }}/upload_area/'
 
-- name: chmod something
-  become: yes
-  shell: chmod -R g+w {{ item }}
-  with_items:
-    - '/usr/share/nginx/testlink'
-
-- name: chown something
-  become: yes
-  shell: chown -R www-data:www-data {{ item }}
-  with_items:
-    - '/usr/share/nginx/testlink'
+- name: Change "/usr/share/nginx/testlink" files permission
+  become: true
+  file:
+    path: /usr/share/nginx/testlink
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+    mode: "g+w"
 
 # Database
 - name: create testlink database
