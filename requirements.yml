@@ -9,3 +9,13 @@
 - # @see https://galaxy.ansible.com/geerlingguy/mysql/
   src: geerlingguy.mysql
   path: roles/
+
+
+# Only for development.
+#- # @see https://galaxy.ansible.com/chusiang/switch-apt-mirror/
+#  src: chusiang.switch-apt-mirror
+#  path: roles/
+#
+#- # @see https://galaxy.ansible.com/chusiang/vim-and-vi-mode/
+#  src: chusiang.vim-and-vi-mode
+#  path: roles/

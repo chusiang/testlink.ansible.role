@@ -1,5 +1,6 @@
 # vagrant
 .vagrant
+ubuntu-*-console.log
 
 # ansible
 ansible.cfg

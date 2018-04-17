@@ -4,8 +4,9 @@
 - debug: msg="==> setting for TestLink"
 
 - name: setting testlink database connect configure
-  template: >
-    src=../templates/config_db.inc.php.j2
-    dest={{ nginx_testlink_path }}/config_db.inc.php
+  become: true
+  template:
+    src: ../templates/config_db.inc.php.j2
+    dest: "{{ nginx_testlink_path }}/config_db.inc.php"
 
-# vim:ft=ansible:
+# vim: ft=ansible :

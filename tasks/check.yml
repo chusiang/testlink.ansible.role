@@ -1,42 +1,68 @@
 ---
 # tasks file for testlink
 
-- debug: msg='==> check process'
+- name: Enter "Check process" stage
+  debug:
+  msg: '==> Check process ...'
 
-# Nginx.
-- name: check nginx process
+# Nginx
+- name: Check nginx process
   shell: ps -A | grep nginx
   register: nginx_process
-  ignore_errors: yes
+  changed_when: false
   tags: debug
 
-- name: print nginx process
+- name: Print nginx process
   debug:
     msg: "{{ nginx_process.stdout_lines }}"
   tags: debug
 
 # PHP
-- name: check php process
+- name: Check php process
   shell: ps -A | grep php-fpm
   register: php_process
-  ignore_errors: yes
+  changed_when: false
   tags: debug
 
-- name: print php process
+- name: Print php process
   debug:
     msg: "{{ php_process.stdout_lines }}"
   tags: debug
 
 # MySQL
-- name: check mysql server process
+- name: Check MySQL server process
   shell: ps -A | grep mysql
   register: mysql_process
-  ignore_errors: yes
+  changed_when: false
   tags: debug
 
-- name: print mysql process
+- name: Print Mysql process
   debug:
     msg: "{{ mysql_process.stdout_lines }}"
   tags: debug
 
-# vim:ft=ansible:
+- name: Enter "Smoke Test" stage
+  debug:
+  msg: '==> Smoke test ...'
+
+- name: install some packages for test
+  become: true
+  apt:
+    name: curl
+    state: present
+  tags: test
+
+- name: test the TestLink web app
+  shell: "curl -s http://localhost/login.php | grep title"
+  register: curl_testlink_web
+  changed_when: false
+  tags:
+    - test
+    - skip_ansible_lint
+
+- name: print curl result
+  debug:
+    msg: "{{ curl_testlink_web.stdout_lines }}"
+  tags: test
+
+# vim: ft=ansible :

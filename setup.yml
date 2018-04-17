@@ -3,18 +3,19 @@
 ---
 - name: play 'testlink.ansible.role/setup.yml'
   hosts: all
-  become: yes
-
   vars_files:
     - defaults/main.yml
 
   pre_tasks:
-    - name: manual add mysql repository
-      include: tasks/add_mysql_repo.yml
+    - name: Run tassk before roles
+      include_tasks: tasks/pre_tasks.yml
+      when: ansible_distribution == 'Debian'
 
   roles:
+    # Only for development.
     #- chusiang.switch-apt-mirror
     #- chusiang.vim-and-vi-mode
+
     - williamyeh.nginx
     - chusiang.php7
     - {
@@ -29,21 +30,11 @@
       }
 
   tasks:
-    - name: rename hostname
-      hostname: name=testlink.local
-      when: ansible_virtualization_type != 'docker'
-
-    - name: include main task
-      include: tasks/main.yml
-
-    - name: include check task
-      include: tasks/check.yml
-
-  post_tasks:
-    # Run some tests.
-    - include: tests/curl_testlink_web.yml
+    - name: Include main task
+      import_tasks: tasks/main.yml
 
   handlers:
-    - include: handlers/main.yml
+    - name: Include handler task
+      import_tasks: handlers/main.yml
 
-# vim:ft=ansible:
+# vim: ft=ansible :
