@@ -42,6 +42,15 @@ jobs:
 
     - stage: Build
       script:
+        - echo "==> Build on Ubuntu 16.04 ..."
+        - docker build -f tests/Dockerfile.ubuntu16.04  -t testlink:ubuntu16.04
+          . | tee tests/output.ubuntu16.04.log
+
+        - echo "==> Run tase case on Ubuntu 16.04 ..."
+        - grep '<title>Login</title>' tests/output.ubuntu16.04.log
+
+    - stage: Build
+      script:
         - echo "==> Build on Debian 8 ..."
         - docker build -f tests/Dockerfile.debian8      -t testlink:debian8
           . | tee tests/output.debian8.log

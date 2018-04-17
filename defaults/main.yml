@@ -4,9 +4,9 @@
 setup_local_database: true
 
 # TestLink
-testlink_tarball_version: '1.9.15'
-testlink_tarball_url: 'http://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.15/testlink-1.9.15.tar.gz'
-testlink_tarball_md5: 'd5b9a3e93cdfd9c8d9daed7fa4257409'
+testlink_tarball_version: '1.9.17'
+testlink_tarball_url: 'https://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.17/testlink-1.9.17.tar.gz'
+testlink_tarball_md5: '7183c30133fecc18c8074142016b6a44'
 testlink_var_path: '/var/testlink'
 testlink_db_name: 'testlinkdb'
 testlink_db_user: 'testlinkdb'
@@ -32,6 +32,6 @@ php_session_gc_maxlifetime: '60000'
 mysql_root_password: ''
 mysql_root_password_update: 'no'
 mysql_packages:
-  - 'mysql-server-5.6'
-  - 'mysql-client-5.6'
+  - 'mysql-server'
+  - 'mysql-client'
   - 'python-mysqldb'

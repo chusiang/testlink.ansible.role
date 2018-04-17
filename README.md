@@ -2,44 +2,30 @@
 
 [![Build Status](https://travis-ci.org/chusiang/testlink.ansible.role.svg?branch=master)](https://travis-ci.org/chusiang/testlink.ansible.role) [![Ansible Galaxy](https://img.shields.io/badge/role-testlink-blue.svg)](https://galaxy.ansible.com/chusiang/testlink/) [![Docker Hub](https://img.shields.io/badge/docker-testlink-blue.svg)](https://hub.docker.com/r/chusiang/testlink/) [![](https://images.microbadger.com/badges/image/chusiang/testlink.svg)](https://microbadger.com/images/chusiang/testlink "Get your own image badge on microbadger.com") [![Vagrant](https://img.shields.io/badge/vagrant-testlink-blue.svg)](https://atlas.hashicorp.com/chusiang/boxes/testlink)
 
-An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fpm) and MySQL 5.6 on Ubuntu and Debian.
+An Ansible role of Deploy [TestLink][testlink_website] with Nginx, PHP 7 (php-fpm) and MySQL 5.6+ on Ubuntu and Debian.
 
-- Current version on Ubuntu 14.04:
-  - TestLink: **1.9.15**
-  - Nginx: **1.10.2**
-  - PHP: **7.0.12**
-  - MySQL: **5.6.33** [^1]
-
-- Current version on Debian 8:
-  - TestLink: **1.9.15**
-  - Nginx: **1.10.2**
-  - PHP: **7.0.12**
-  - MySQL: **5.6.34** [^2] 
+|          | Ubuntu 16.04 | Ubuntu 14.04 (EOL) | Debian 8   |
+| :------: | ------------ | ------------------ | ---------- |
+| TestLink | 1.9.17       | 1.9.15 [^1]        | 1.9.17     |
+| Nginx    | 1.14.0       | 1.12.2             | 1.14.0     |
+| PHP      | 7.0.29       | 7.0.29             | 7.0.29     |
+| MySQL    | 5.7.21       | 5.6.33             | 5.6.39 [^2]|
 
 [testlink_website]: http://www.testlink.org/
 
 ## Requirements
 
-If we want to use the TestLink role on debian 8, we need include `tasks/add_mysql_repo.yml` at `pre_tasks` and use different package name.
+If we want to use this TestLink role on debian 8, we need include `tasks/pre_tasks.yml` in `pre_tasks` for use mysql-server-5.6.
 
 ```
 pre_tasks:
   - name: manual add mysql repository
-    include: tasks/add_mysql_repo.yml
+    include: tasks/pre_tasks.yml
 
 roles:
   - williamyeh.nginx
   - chusiang.php7
-  - {
-      role: geerlingguy.mysql,
-      mysql_packages: ['mysql-server', 'mysql-client','python-mysqldb'],
-      when: "ansible_distribution == 'Debian'"
-    }
-  - {
-      role: geerlingguy.mysql,
-      mysql_packages: ['mysql-server-5.6', 'mysql-client-5.6','python-mysqldb'],
-      when: "ansible_distribution == 'Ubuntu'"
-    }
+  - geerlingguy.mysql
 ```
 
 ## Role Variables
@@ -50,9 +36,9 @@ If you have a stand alone database server, you can setting the `setup_local_data
 setup_local_database: true
 
 # TestLink
-testlink_tarball_version: '1.9.15'
-testlink_tarball_url: 'http://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.15/testlink-1.9.15.tar.gz'
-testlink_tarball_md5: 'd5b9a3e93cdfd9c8d9daed7fa4257409'
+testlink_tarball_version: '1.9.17'
+testlink_tarball_url: 'https://downloads.sourceforge.net/project/testlink/TestLink%201.9/TestLink%201.9.17/testlink-1.9.17.tar.gz'
+testlink_tarball_md5: '7183c30133fecc18c8074142016b6a44'
 testlink_var_path: '/var/testlink'
 testlink_db_name: 'testlinkdb'
 testlink_db_user: 'testlinkdb'
@@ -78,8 +64,8 @@ php_session_gc_maxlifetime: '60000'
 mysql_root_password: ''
 mysql_root_password_update: 'no'
 mysql_packages:
-  - 'mysql-client-5.6'
-  - 'mysql-server-5.6'
+  - 'mysql-server'
+  - 'mysql-client'
   - 'python-mysqldb'
 ```
 
@@ -109,7 +95,9 @@ This repository contains Dockerized [Ansible](https://github.com/ansible/ansible
 
 ### Images
 
-- chusiang/testlink (lastest)
+- `ubuntu-16.04` (lastest)
+- `ubuntu-14.04` (EOL)
+- `debian-8`
 
 ### Usage
 
@@ -137,7 +125,7 @@ This repository contains Dockerized [Ansible](https://github.com/ansible/ansible
 
 ## License
 
-Copyright (c) chusiang from 2016 under the MIT license.
+Copyright (c) chusiang from 2016-2018 under the MIT license.
 
 
 [^1]: The TestLink 1.9.15 is base on **PHP > 5.4** and **MySQL 5.6.x**, please be careful. [(more)](https://github.com/TestLinkOpenSourceTRMS/testlink-code/blob/testlink_1_9/README)
