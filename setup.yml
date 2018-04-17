@@ -1,7 +1,7 @@
 #!/usr/bin/env ansible-playbook
 
 ---
-- name: play 'testlink.ansible.role/setup.yml'
+- name: Play 'testlink.ansible.role/setup.yml'
   hosts: all
   vars_files:
     - defaults/main.yml
@@ -12,22 +12,13 @@
       when: ansible_distribution == 'Debian'
 
   roles:
+    - williamyeh.nginx
+    - chusiang.php7
+    - geerlingguy.mysql
+
     # Only for development.
     #- chusiang.switch-apt-mirror
     #- chusiang.vim-and-vi-mode
-
-    - williamyeh.nginx
-    - chusiang.php7
-    - {
-        role: geerlingguy.mysql,
-        mysql_packages: ['mysql-server', 'mysql-client', 'python-mysqldb'],
-        when: "ansible_distribution == 'Debian'"
-      }
-    - {
-        role: geerlingguy.mysql,
-        mysql_packages: ['mysql-server-5.6', 'mysql-client-5.6', 'python-mysqldb'],
-        when: "ansible_distribution == 'Ubuntu'"
-      }
 
   tasks:
     - name: Include main task
