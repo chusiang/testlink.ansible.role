@@ -3,14 +3,12 @@
 ---
 - name: play 'testlink.ansible.role/setup.yml'
   hosts: all
-  become: true
-
   vars_files:
     - defaults/main.yml
 
   pre_tasks:
-    - name: Add MySQL repository before roles
-      include_tasks: tasks/add_mysql_repo.yml
+    - name: Run tassk before roles
+      include_tasks: tasks/pre_tasks.yml
       when: ansible_distribution == 'Debian'
 
   roles:
