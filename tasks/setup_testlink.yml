@@ -5,29 +5,38 @@
 
 # Get TestLink.
 - name: download testlink tarball
-  get_url: >
-    url={{ testlink_tarball_url }} checksum='md5:{{ testlink_tarball_md5 }}'
-    dest=/tmp/testlink.tar.gz
+  get_url:
+    url: "{{ testlink_tarball_url }}"
+    dest: /tmp/testlink.tar.gz
+    checksum: "md5:{{ testlink_tarball_md5 }}"
 
 - name: unarchive testlink tarball
-  unarchive: src=/tmp/testlink.tar.gz dest=/tmp copy=no
+  unarchive:
+    src: /tmp/testlink.tar.gz
+    dest: /tmp
+    copy: no
 
 # Create TestLink workspace
 - name: check testlink temp path
-  stat: path=/tmp/testlink-{{ testlink_tarball_version }}
+  stat:
+    path: "/tmp/testlink-{{ testlink_tarball_version }}"
   register: unarchive_testlink_stat
 
 - name: move testlink directory into nginx
-  become: yes
+  become: true
   command: mv /tmp/testlink-{{ testlink_tarball_version }} {{ nginx_testlink_path }}
   when: unarchive_testlink_stat.stat.exists
   ignore_errors: yes
 
 # Read/write permissions
 - name: create testlink directory
-  file: >
-    path='{{ item }}' state=directory
-    owner=www-data group=www-data mode=0775
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0775
   with_items:
     - '{{ testlink_var_path }}'
     - '{{ testlink_var_path }}/logs/'
@@ -45,29 +54,35 @@
 
 # Database
 - name: create testlink database
-  mysql_db: >
-    name={{ testlink_db_name }} state=present
-    encoding=utf8 collation=utf8_general_ci
+  mysql_db:
+    name: "{{ testlink_db_name }}"
+    state: present
+    encoding: utf8
+    collation: utf8_general_ci
   when: setup_local_database == true
   tags:
     - database
 
 - name: create testlink table and data
-  mysql_db: >
-    name={{ testlink_db_name }} state=import
-    target={{ item }}
+  mysql_db:
+    name: "{{ testlink_db_name }}"
+    state: import
+    target: "{{ item }}"
   with_items:
-    - '{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_tables.sql'
-    - '{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_default_data.sql'
+    - "{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_tables.sql"
+    - "{{ nginx_testlink_path }}/install/sql/mysql/testlink_create_default_data.sql"
   when: setup_local_database == true
   ignore_errors: yes
   tags:
     - database
 
 - name: create user for testlink database
-  mysql_user: >
-    name={{ testlink_db_user }} host=localhost state=present
-    password={{ testlink_db_password }} priv={{ testlink_db_name }}.*:ALL
+  mysql_user:
+    name: "{{ testlink_db_user }}"
+    host: localhost
+    state: present
+    password: "{{ testlink_db_password }}"
+    priv: "{{ testlink_db_name }}.*:ALL"
   when: setup_local_database == true
   ignore_errors: yes
   tags:

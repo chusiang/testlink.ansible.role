@@ -27,16 +27,19 @@
 
 # backup default nginx virtualhost.
 - name: check if "default.conf.bak" target exists
-  stat: path=/etc/nginx/conf.d/default.conf
+  stat:
+    path: /etc/nginx/conf.d/default.conf
   register: filecheck
 
 - name: rename to "default.conf.bak", if any
+  become: true
   command: mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.bak
   when: filecheck.stat.exists
   notify: restart nginx
 
 # add new nginx virtualhost.
 - name: add testlink virtualhost of nginx
+  become: true
   vars:
     php_socket_path: /var/run/php/php7.0-fpm.sock
   template:
@@ -47,6 +50,7 @@
 
 # add new nginx virtualhost (ssl).
 - name: add testlink-web.app virtualhost (ssl) of nginx
+  become: true
   vars:
     php_socket_path: /var/run/php/php7.0-fpm.sock
   template:
@@ -55,4 +59,4 @@
   when: nginx_enable_ssl == true
   notify: restart nginx
 
-# vim:ft=ansible :
+# vim: ft=ansible :

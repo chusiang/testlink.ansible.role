@@ -4,19 +4,22 @@
 # Debian
 ########
 
-- name: Only on Debian
+- name: Only run on Debian
   block:
     - name: Add MySQL repository key on Debian
+      become: true
       apt_key:
         url: http://repo.mysql.com/RPM-GPG-KEY-mysql
         state: present
 
     - name: Add MySQL server repository on Debian
+      become: true
       apt_repository:
         repo: "deb http://repo.mysql.com/apt/debian/ {{ ansible_distribution_release }} mysql-5.6"
         state: present
 
     - name: Add MySQL python connector repository on Debian
+      become: true
       apt_repository:
         repo: "deb http://repo.mysql.com/apt/debian/ {{ ansible_distribution_release }} connector-python-2.0"
         state: present
