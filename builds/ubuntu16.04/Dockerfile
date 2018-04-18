@@ -9,7 +9,6 @@ MAINTAINER Chu-Siang Lai <chusiang@drx.tw>
 RUN echo "===> Fix policy-rc.d for Docker ..."                              && \
       sed -i -e 's/exit\s\s*101/exit 0/' /usr/sbin/policy-rc.d
 
-
 RUN echo "===> Install necessary packages ..."                              && \
       apt-get install -y curl git make
 

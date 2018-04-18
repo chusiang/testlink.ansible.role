@@ -1,32 +1,30 @@
 # Dockerfile for building image that contains software stack provisioned by Ansible.
-#
-# USAGE:
-#   $ docker build -t testlink ../
-#   $ docker run -d -v $(pwd):/data testlink
-#
-# Version  1.1
-#
 
-# pull base image
 FROM williamyeh/ansible:debian8-onbuild
 
-MAINTAINER Chu-Siang Lai <chusiang.lai@gmail.com>
+MAINTAINER Chu-Siang Lai <chusiang@drx.tw>
 
-# fix policy-rc.d for Docker
 # @see http://www.monblocnotes.com/node/2057
 # @see http://askubuntu.com/a/365912
-RUN sed -i -e 's/exit\s\s*101/exit 0/' /usr/sbin/policy-rc.d
+RUN echo "===> Fix policy-rc.d for Docker ..."                              && \
+      sed -i -e 's/exit\s\s*101/exit 0/' /usr/sbin/policy-rc.d
 
-# init
-RUN sudo apt-get install -y curl git make ;\
-    git clone https://github.com/chusiang/testlink.ansible.role.git ;\
-    cd testlink.ansible.role ;\
+RUN echo "===> Install necessary packages ..."                              && \
+      apt-get install -y curl git make
+
+RUN echo "===> Get playbook ..."                                            && \
+    git clone --depth=1 https://github.com/chusiang/testlink.ansible.role.git ;\
+    cd testlink.ansible.role                                                && \
     make init
 
 ENV PLAYBOOK testlink.ansible.role/setup.yml
-RUN ansible-playbook-wrapper -vvv
-RUN cp run.sh /
 
-EXPOSE 80 443 
+RUN echo "===> Run playbook ..."                                            && \
+      ansible-playbook-wrapper
+
 VOLUME [ "/data" ]
+WORKDIR /srv
+EXPOSE 80 443
+
+COPY run.sh /
 ENTRYPOINT [ "/run.sh" ]
