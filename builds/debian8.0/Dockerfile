@@ -22,6 +22,11 @@ ENV PLAYBOOK testlink.ansible.role/setup.yml
 RUN echo "===> Run playbook ..."                                            && \
       ansible-playbook-wrapper
 
+RUN echo "===> Clean ..."                                                   && \
+      apt-get clean                                                         && \
+      cd /tmp                                                               && \
+      rm -rf Dockerfile run.sh testlink.ansible.role testlink.tar.gz
+
 VOLUME [ "/data" ]
 WORKDIR /srv
 EXPOSE 80 443
