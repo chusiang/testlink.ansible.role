@@ -26,4 +26,4 @@
 
   when: ansible_distribution == 'Debian'
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

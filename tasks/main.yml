@@ -20,4 +20,4 @@
 - name: Enter the check stage
   import_tasks: check.yml
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

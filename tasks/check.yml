@@ -65,4 +65,4 @@
     msg: "{{ curl_testlink_web.stdout_lines }}"
   tags: test
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

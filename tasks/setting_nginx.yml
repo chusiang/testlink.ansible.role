@@ -59,4 +59,4 @@
   when: nginx_enable_ssl == true
   notify: restart nginx
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :
