@@ -3,7 +3,7 @@
 
 - name: Enter "Check process" stage
   debug:
-  msg: '==> Check process ...'
+    msg: '==> Check process ...'
 
 # Nginx
 - name: Check nginx process
@@ -43,7 +43,7 @@
 
 - name: Enter "Smoke Test" stage
   debug:
-  msg: '==> Smoke test ...'
+    msg: '==> Smoke test ...'
 
 - name: install some packages for test
   become: true
